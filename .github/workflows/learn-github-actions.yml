@@ -48,9 +48,9 @@ jobs:
             repos.forEach((repo) => {
               const {name, url, mentorScore, delta, anomalies} = repo
               const deltaColor = delta < 0 ? "red" : "green"
-              const formatedDelta = delta < 0 delta : `+${delta}`
+              # const formatedDelta = delta < 0 delta : `+${delta}`
               reportData += `
-          ### [${name}](${url}) -- Mentor Score: ${mentorScore} ${delta != 0 && <span style="color">(${formatedDelta})</span>}
+          ### [${name}](${url}) -- Mentor Score: ${mentorScore} <span style="color: ${deltaColor}">(${formatedDelta})</span>
           <details>
           <summary>Anomalies</summary>
 
