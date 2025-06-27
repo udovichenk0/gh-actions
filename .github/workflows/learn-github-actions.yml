@@ -46,7 +46,7 @@ jobs:
           }];
           function createRow(anomaly){
             const {id, priority, age, controlExpression} = anomaly
-            return `| ${id} | getPriorityLevel(priority) | ${age} | escapeHtml(controlExpression) |`
+            return `| ${id} | getPriorityLevel(priority) | ${age} | escapeHtml(controlExpression) |\n`
           }
           function escapeHtml(str) {
             return str
@@ -84,19 +84,6 @@ jobs:
           | Id | Priority | Age | Control Expression |
           | --- | --- | --- | --- |
           ${generateAnomaliesRows(anomalies)} 
-          # <table>
-          #   <thead>
-          #     <tr>
-          #       <th>Id</th>
-          #       <th>Priority</th>
-          #       <th>Age</th>
-          #       <th>Control Expression</th>
-          #     </tr>
-          #   </thead>
-          #   <tbody>
-          # ${generateAnomaliesRows(anomalies)}
-          #   </tbody>
-          # </table>
 
           </details>
           `             
