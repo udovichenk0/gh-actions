@@ -61,6 +61,9 @@ jobs:
               .replace(/</g, "&lt;")
               .replace(/>/g, "&gt;");
           }
+          function pad(text, spaces = 5) {
+            return text + "&nbsp;".repeat(spaces);
+          }
           function getPriorityLevel(priority){
             switch(priority){
               case "Critical":
@@ -85,19 +88,24 @@ jobs:
           <details>
           <summary>Anomalies</summary>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Priority</th>
-                <th>Age</th>
-                <th>Control Expression</th>
-              </tr>
-            </thead>
-            <tbody>
-          ${generateAnomaliesRows(anomalies)}
-            </tbody>
-          </table>
+          | Command | Description |
+          | --- | --- |
+          | `git status` | List all *new or modified* files |
+          | `git diff` | if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || (enableDebugTracing && type === REACT_DEBUG_TRACING_MODE_TYPE) || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || (enableLegacyHidden && type === REACT_LEGACY_HIDDEN_TYPE) || type === REACT_OFFSCREEN_TYPE || (enableScopeAPI && type === REACT_SCOPE_TYPE) || (enableCacheElement && type === REACT_CACHE_TYPE) || (enableTransitionTracing && type === REACT_TRACING_MARKER_TYPE)) {} |
+
+          # <table>
+          #   <thead>
+          #     <tr>
+          #       <th>Id</th>
+          #       <th>Priority</th>
+          #       <th>Age</th>
+          #       <th>Control Expression</th>
+          #     </tr>
+          #   </thead>
+          #   <tbody>
+          # ${generateAnomaliesRows(anomalies)}
+          #   </tbody>
+          # </table>
 
           </details>
           `             
