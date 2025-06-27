@@ -26,28 +26,53 @@ jobs:
               },
               {
                 id: "169 (0)",
-                priority: "Critical",
+                priority: "High",
+                age: "1Y",
+                controlExpression: "expr"
+              },
+              {
+                id: "169 (0)",
+                priority: "Low",
+                age: "1Y",
+                controlExpression: "expr"
+              },
+              {
+                id: "169 (0)",
+                priority: "Medium",
                 age: "1Y",
                 controlExpression: "expr"
               }
             ]
           }];
-          function createRow(id, priority, age, expr){
+          function createRow(anomaly){
+            const {id, priority, age, expr} = anomaly
             return `
               <tr>
                 <td>${id}</td>
-                <td>${priority}</td>
+                <td>${getPriorityLevel(priority)}</td>
                 <td>${age}</td>
                 <td>${expr}</td>
               </tr>
             `
+          }
+          function getPriorityLevel(priority){
+            switch(priority){
+              case "Critical":
+                return "🔴 Critical"
+              case "High":
+                return "🟠 High"
+              case "Medium":
+                return "🟡 Medium"
+              default:
+                return "🟢 Low"
+            }
           }
 
           function generateMarkdown(repos){
             let reportData = ""
             repos.forEach((repo) => {
               const {name, url, mentorScore, delta, anomalies} = repo
-              const deltaColor = delta < 0 ? "red" : "green"
+              const deltaColor = delta < 0 ? "⬇️" : "⬆️"
               const formatedDelta = delta < 0 ? delta : `+${delta}`
               reportData += `
           ### [${name}](${url}) -- Mentor Score: ${mentorScore} <span style="color: ${deltaColor}">(${formatedDelta})</span>
@@ -64,24 +89,23 @@ jobs:
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>192 (0)</td>
-                <td>Critical</td>
-                <td>1M</td>
-                <td>expr</td>
-              </tr>
-              <tr>
-                <td>196 (6)</td>
-                <td>Critical</td>
-                <td>1Y</td>
-                <td>new expr</td>
-              </tr>
+              ${generateAnomaliesRows(anomalies)}
             </tbody>
           </table>
 
           </details>
           `             
             })
+            return reportData
+          }
+
+          function generateAnomaliesRows(anomalies){
+            let reportData = ""
+            anomalies.forEach(anomaly){
+              reportData += `
+          ${createRow(anomaly)}
+              `
+            }
             return reportData
           }
 
