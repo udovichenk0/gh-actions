@@ -2,11 +2,17 @@ name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
 jobs: 
-  check-bats-version:
-    runs-on: windows-latest
+  test:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Install modules
-      run: yarn
-    - name: Run ESLint
-      run: yarn lint
+    - uses: actions/checkout@v4
+    - uses: bcgov/action-pr-description-add@main
+      with:
+        add_markdown: |
+          ---
+
+          # Things!
+          ## Excitement!
+          [Links!](https://google.ca)
+          `Code!`
+      
