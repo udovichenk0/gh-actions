@@ -16,6 +16,7 @@ jobs:
             name: "facebook.react",
             url: "https://github.com/facebook/react",
             mentorScore: 789,
+            delta: 13
             anomalies: [
               {
                 id: "192 (0)",
@@ -32,7 +33,7 @@ jobs:
             ]
           }];
           const markdownBody = `
-            ### [facebook.react](https://github.com/facebook/react) -- Mentor Score: 789 
+            ### [facebook.react](https://github.com/facebook/react) -- Mentor Score: 789 <span style='color: #06923E;'>(+13)</span> 
             <details>
             <summary>Anomalies</summary>
 
