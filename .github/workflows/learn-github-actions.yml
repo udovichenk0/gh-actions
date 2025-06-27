@@ -36,10 +36,30 @@ jobs:
             <details>
             <summary>Anomalies</summary>
 
-            | Id      | Priority | Age | Control Expression |
-            |---------|----------|-----|--------------------|
-            | 192 (0) | Critical | 1M  | expr               |
-            | 169 (0) | Critical | 1Y  | new expr           |
+            <table>
+              <thead>
+                <tr>
+                  <th align="left">Id</th>
+                  <th align="right">Priority</th>
+                  <th align="right">Age</th>
+                  <th align="right">Control Expression</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>192 (0)</td>
+                  <td>Critical</td>
+                  <td>1M</td>
+                  <td>expr</td>
+                </tr>
+                <tr>
+                  <td>196 (6)</td>
+                  <td>Critical</td>
+                  <td>1Y</td>
+                  <td>new expr</td>
+                </tr>
+              </tbody>
+            </table>
 
             </details>
           `
