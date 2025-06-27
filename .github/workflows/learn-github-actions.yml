@@ -11,9 +11,38 @@ jobs:
     - uses: actions/github-script@v7
       with:
         script: |
+          const repos = [
+          {
+            name: "facebook.react",
+            url: "https://github.com/facebook/react",
+            mentorScore: 789,
+            anomalies: [
+              {
+                id: "192 (0)",
+                priority: "Critical",
+                age: "1M",
+                controlExpression: "expr"
+              },
+              {
+                id: "169 (0)",
+                priority: "Critical",
+                age: "1Y",
+                controlExpression: "expr"
+              }
+            ]
+          }];
+          const markdownBody = `
+            ### [facebook.react](https://github.com/facebook/react) -- Mentor Score: 789 
+            <details>
+            <summary>Anomalies</summary>
+              | Id      | Priority     | Age    | Control Expression |
+              | 192 (0) | Critical | 1M |  expr |
+              | 169 (0) | Critical | 1Y |  new expr |
+            </details>
+          `
           github.rest.pulls.update({
-              pull_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'hello'
+            pull_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: markdownBody
           })
