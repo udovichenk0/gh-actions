@@ -1,7 +1,6 @@
 name: learn-github-actions
 on: 
   pull_request:
-  push:
   workflow_dispatch:
 jobs: 
   test:
@@ -17,7 +16,6 @@ jobs:
             name: "facebook.react",
             url: "https://github.com/facebook/react",
             mentorScore: 789,
-            delta: 13,
             anomalies: [
               {
                 id: "192 (0)",
@@ -34,7 +32,7 @@ jobs:
             ]
           }];
           const markdownBody = `
-            ### [facebook.react](https://github.com/facebook/react) -- Mentor Score: 789 <span style='color: #06923E;'>(+13)</span> 
+            ### [facebook.react](https://github.com/facebook/react) -- Mentor Score: 789 (+13) 
             <details>
             <summary>Anomalies</summary>
 
