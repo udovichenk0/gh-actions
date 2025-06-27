@@ -35,9 +35,9 @@ jobs:
             ### [facebook.react](https://github.com/facebook/react) -- Mentor Score: 789 
             <details>
             <summary>Anomalies</summary>
-              | Id      | Priority     | Age    | Control Expression |
-              | 192 (0) | Critical | 1M |  expr |
-              | 169 (0) | Critical | 1Y |  new expr |
+              | Id      | Priority | Age | Control Expression |
+              | 192 (0) | Critical | 1M  |  expr              |
+              | 169 (0) | Critical | 1Y  |  new expr          |
             </details>
           `
           github.rest.pulls.update({
