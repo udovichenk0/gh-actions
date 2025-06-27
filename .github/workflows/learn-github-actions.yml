@@ -47,18 +47,20 @@ jobs:
             let reportData = ""
             repos.forEach((repo) => {
               const {name, url, mentorScore, delta, anomalies} = repo
+              const deltaColor = delta < 0 ? "red" : "green"
+              const formatedDelta = delta < 0 delta : `+${delta}`
               reportData += `
-          ### [${name}](${url}) -- Mentor Score: ${mentorScore} (${delta}) 
+          ### [${name}](${url}) -- Mentor Score: ${mentorScore} ${delta != 0 && <span style="color">(${formatedDelta})</span>}
           <details>
           <summary>Anomalies</summary>
 
           <table>
             <thead>
               <tr>
-                <th align="left">Id</th>
-                <th align="right">Priority</th>
-                <th align="right">Age</th>
-                <th align="right">Control Expression</th>
+                <th>Id</th>
+                <th>Priority</th>
+                <th>Age</th>
+                <th>Control Expression</th>
               </tr>
             </thead>
             <tbody>
