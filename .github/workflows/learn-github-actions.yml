@@ -51,7 +51,7 @@ jobs:
             <td>${id}</td>
             <td>${getPriorityLevel(priority)}</td>
             <td>${age}</td>
-            <td><code>${controlExpression}</code></td>
+            <td><pre><code>${controlExpression}</code></pre></td>
           </tr>
             `
           }
