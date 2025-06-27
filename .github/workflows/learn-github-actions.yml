@@ -81,12 +81,12 @@ jobs:
             })
             return reportData
           }
-          
+
           const markdown = generateMarkdown(repos)
 
           github.rest.pulls.update({
             pull_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: markdownBody
+            body: markdown
           })
