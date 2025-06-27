@@ -89,7 +89,7 @@ jobs:
               </tr>
             </thead>
             <tbody>
-              ${generateAnomaliesRows(anomalies)}
+          ${generateAnomaliesRows(anomalies)}
             </tbody>
           </table>
 
@@ -102,9 +102,7 @@ jobs:
           function generateAnomaliesRows(anomalies){
             let reportData = ""
             anomalies.forEach(anomaly => {
-              reportData += `
-          ${createRow(anomaly)}
-              `
+              reportData += `${createRow(anomaly)}`
             })
             return reportData
           }
