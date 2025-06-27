@@ -49,6 +49,7 @@ jobs:
               const {name, url, mentorScore, delta, anomalies} = repo
               reportData += `
           ### [${name}](${url}) -- Mentor Score: ${mentorScore} (${delta}) 
+          <details>
           <summary>Anomalies</summary>
 
           <table>
