@@ -46,11 +46,12 @@ jobs:
           }];
           function createRow(anomaly){
             const {id, priority, age, controlExpression} = anomaly
-            return `| ${id} | getPriorityLevel(priority) | ${age} | ${escapeHtml(controlExpression)} |\n`
+            return `| ${id} | ${getPriorityLevel(priority)} | ${age} | ${escapeHtml(controlExpression)} |\n`
           }
           function escapeHtml(str) {
             return str
               .replace(/&/g, "&amp;")
+              .replace(/\|/g, "&#124;") // escape pipes
               .replace(/</g, "&lt;")
               .replace(/>/g, "&gt;");
           }
