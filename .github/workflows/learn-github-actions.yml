@@ -1,12 +1,109 @@
 name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
-on: [push]
+on: 
+  pull_request:
+  workflow_dispatch:
 jobs: 
-  check-bats-version:
-    runs-on: windows-latest
+  test:
+    runs-on: ubuntu-latest
+    permissions: write-all
     steps:
-    - uses: actions/checkout@v3
-    - name: Install modules
-      run: yarn
-    - name: Run ESLint
-      run: yarn lint
+    - uses: actions/checkout@v4
+    - uses: actions/github-script@v7
+      with:
+        script: |
+          const repos = [
+          {
+            name: "facebook.react",
+            url: "https://github.com/facebook/react",
+            mentorScore: 789,
+            delta: 13,
+            anomalies: [
+              {
+                id: "192 (0)",
+                priority: "Critical",
+                age: "1M",
+                controlExpression: "if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || (enableDebugTracing && type === REACT_DEBUG_TRACING_MODE_TYPE) || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || (enableLegacyHidden && type === REACT_LEGACY_HIDDEN_TYPE) || type === REACT_OFFSCREEN_TYPE || (enableScopeAPI && type === REACT_SCOPE_TYPE) || (enableCacheElement && type === REACT_CACHE_TYPE) || (enableTransitionTracing && type === REACT_TRACING_MARKER_TYPE)) {}"
+              },
+              {
+                id: "169 (0)",
+                priority: "High",
+                age: "1Y",
+                controlExpression: "if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || (enableDebugTracing && type === REACT_DEBUG_TRACING_MODE_TYPE) || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || (enableLegacyHidden && type === REACT_LEGACY_HIDDEN_TYPE) || type === REACT_OFFSCREEN_TYPE || (enableScopeAPI && type === REACT_SCOPE_TYPE) || (enableCacheElement && type === REACT_CACHE_TYPE) || (enableTransitionTracing && type === REACT_TRACING_MARKER_TYPE)) {}"
+              },
+              {
+                id: "169 (0)",
+                priority: "Low",
+                age: "1Y",
+                controlExpression: "if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || (enableDebugTracing && type === REACT_DEBUG_TRACING_MODE_TYPE) || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || (enableLegacyHidden && type === REACT_LEGACY_HIDDEN_TYPE) || type === REACT_OFFSCREEN_TYPE || (enableScopeAPI && type === REACT_SCOPE_TYPE) || (enableCacheElement && type === REACT_CACHE_TYPE) || (enableTransitionTracing && type === REACT_TRACING_MARKER_TYPE)) {}"
+              },
+              {
+                id: "169 (0)",
+                priority: "Medium",
+                age: "1Y",
+                controlExpression: "if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || (enableDebugTracing && type === REACT_DEBUG_TRACING_MODE_TYPE) || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || (enableLegacyHidden && type === REACT_LEGACY_HIDDEN_TYPE) || type === REACT_OFFSCREEN_TYPE || (enableScopeAPI && type === REACT_SCOPE_TYPE) || (enableCacheElement && type === REACT_CACHE_TYPE) || (enableTransitionTracing && type === REACT_TRACING_MARKER_TYPE)) {}"
+              }
+            ]
+          }];
+          function createRow(anomaly){
+            const {id, priority, age, controlExpression} = anomaly
+            return `| ${id} | getPriorityLevel(priority) | ${age} | escapeHtml(controlExpression) |\n`
+          }
+          function escapeHtml(str) {
+            return str
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;");
+          }
+          function pad(text, spaces = 5) {
+            return text + "&nbsp;".repeat(spaces);
+          }
+          function getPriorityLevel(priority){
+            switch(priority){
+              case "Critical":
+                return "🔴 Critical"
+              case "High":
+                return "🟠 High"
+              case "Medium":
+                return "🟡 Medium"
+              default:
+                return "🟢 Low"
+            }
+          }
+
+          function generateMarkdown(repos){
+            let reportData = ""
+            repos.forEach((repo) => {
+              const {name, url, mentorScore, delta, anomalies} = repo
+              const deltaColor = delta < 0 ? "⬇️" : "⬆️"
+              const formatedDelta = delta < 0 ? delta : `+${delta}`
+              reportData += `
+          ### [${name}](${url}) -- Mentor Score: ${mentorScore} <span style="color: ${deltaColor}">(${formatedDelta})</span>
+          <details>
+          <summary>Anomalies</summary>
+
+          | Id | Priority | Age | Control Expression |
+          | --- | --- | --- | --- |
+          ${generateAnomaliesRows(anomalies)} 
+
+          </details>
+          `             
+            })
+            return reportData
+          }
+
+          function generateAnomaliesRows(anomalies){
+            let reportData = ""
+            anomalies.forEach(anomaly => {
+              reportData += `${createRow(anomaly)}`
+            })
+            return reportData
+          }
+
+          const markdown = generateMarkdown(repos)
+
+          github.rest.pulls.update({
+            pull_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: markdown
+          })
