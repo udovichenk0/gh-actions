@@ -101,11 +101,11 @@ jobs:
 
           function generateAnomaliesRows(anomalies){
             let reportData = ""
-            anomalies.forEach(anomaly){
+            anomalies.forEach(anomaly => {
               reportData += `
           ${createRow(anomaly)}
               `
-            }
+            })
             return reportData
           }
 
