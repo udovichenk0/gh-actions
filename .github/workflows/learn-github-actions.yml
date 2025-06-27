@@ -48,36 +48,36 @@ jobs:
             repos.forEach((repo) => {
               const {name, url, mentorScore, delta, anomalies} = repo
               reportData += `
-                ### [${name}](${url}) -- Mentor Score: ${mentorScore} (${delta}) 
-                <summary>Anomalies</summary>
+          ### [${name}](${url}) -- Mentor Score: ${mentorScore} (${delta}) 
+          <summary>Anomalies</summary>
 
-                  <table>
-                    <thead>
-                      <tr>
-                        <th align="left">Id</th>
-                        <th align="right">Priority</th>
-                        <th align="right">Age</th>
-                        <th align="right">Control Expression</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>192 (0)</td>
-                        <td>Critical</td>
-                        <td>1M</td>
-                        <td>expr</td>
-                      </tr>
-                      <tr>
-                        <td>196 (6)</td>
-                        <td>Critical</td>
-                        <td>1Y</td>
-                        <td>new expr</td>
-                      </tr>
-                    </tbody>
-                  </table>
+          <table>
+            <thead>
+              <tr>
+                <th align="left">Id</th>
+                <th align="right">Priority</th>
+                <th align="right">Age</th>
+                <th align="right">Control Expression</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>192 (0)</td>
+                <td>Critical</td>
+                <td>1M</td>
+                <td>expr</td>
+              </tr>
+              <tr>
+                <td>196 (6)</td>
+                <td>Critical</td>
+                <td>1Y</td>
+                <td>new expr</td>
+              </tr>
+            </tbody>
+          </table>
 
-                  </details>
-              `             
+          </details>
+          `             
             })
             return reportData
           }
