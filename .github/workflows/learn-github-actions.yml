@@ -48,12 +48,18 @@ jobs:
             const {id, priority, age, controlExpression} = anomaly
             return `
           <tr>
-            <td><pre>${id}</pre></td>
-            <td><pre>${getPriorityLevel(priority)}</pre></td>
-            <td><pre>${age}</pre></td>
-            <td><pre><code>${controlExpression}</code></pre></td>
+            <td>${id}</td>
+            <td>${getPriorityLevel(priority)}</td>
+            <td>${age}</td>
+            <td><pre><code>${escapeHtml(controlExpression)}</code></pre></td>
           </tr>
             `
+          }
+          function escapeHtml(str) {
+            return str
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;");
           }
           function getPriorityLevel(priority){
             switch(priority){
@@ -82,10 +88,10 @@ jobs:
           <table>
             <thead>
               <tr>
-                <th><pre>Id</pre></th>
-                <th><pre>Priority</pre></th>
-                <th><pre>Age</pre></th>
-                <th><pre>Control Expression</pre></th>
+                <th>Id</th>
+                <th>Priority</th>
+                <th>Age</th>
+                <th>Control Expression</th>
               </tr>
             </thead>
             <tbody>
