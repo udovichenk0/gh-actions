@@ -1,6 +1,7 @@
 name: learn-github-actions
 on: 
   pull_request:
+  push:
   workflow_dispatch:
 jobs: 
   test:
@@ -16,7 +17,7 @@ jobs:
             name: "facebook.react",
             url: "https://github.com/facebook/react",
             mentorScore: 789,
-            delta: 13
+            delta: 13,
             anomalies: [
               {
                 id: "192 (0)",
